@@ -1,9 +1,9 @@
 server:
   servlet:
-    context-path: /archetype
+    context-path: /app-sso
 spring:
   application:
-    name: archetype-web
+    name: app-sso-web
   profiles:
     include: web-${spring.profiles.active},service-${spring.profiles.active},dao-${spring.profiles.active},ref-${spring.profiles.active},redis-${spring.profiles.active}
   jackson:

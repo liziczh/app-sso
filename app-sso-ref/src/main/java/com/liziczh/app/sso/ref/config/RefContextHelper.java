@@ -14,7 +14,7 @@ public class RefContextHelper {
 	private String USERNAME;
 	@Value("${health.password}")
 	private String PASSWORD;
-	@Value("${archetype.web}")
+	@Value("${app-sso.web}")
 	private String ARCHETYPE_WEB;
 	private Map<String, String> config = new HashMap<String, String>();
 

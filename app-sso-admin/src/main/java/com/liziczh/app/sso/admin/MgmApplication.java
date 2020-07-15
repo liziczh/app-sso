@@ -3,8 +3,7 @@ package com.liziczh.app.sso.admin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.liziczh.archetype.dao.DaoApplication;
-import com.liziczh.archetype.ref.RefApplication;
+-sso.dao.DaoApplication;-sso.ref.RefApplication;
 
 @SpringBootApplication
 public class MgmApplication {

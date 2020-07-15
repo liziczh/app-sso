@@ -29,7 +29,7 @@
 		<!--biz-->
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-service</artifactId>
+			<artifactId>app-sso-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

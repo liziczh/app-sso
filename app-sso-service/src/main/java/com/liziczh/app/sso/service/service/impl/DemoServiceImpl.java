@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.liziczh.archetype.api.condition.DemoCondition;
-import com.liziczh.archetype.api.entity.TDemo;
-import com.liziczh.archetype.api.service.DemoService;
-import com.liziczh.archetype.dao.mapper.TDemoMapper;
-import com.liziczh.archetype.ref.service.DemoRefService;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.entity.TDemo;
+import com.liziczh.app.sso.api.service.DemoService;
+import com.liziczh.app.sso.dao.mapper.TDemoMapper;
+import com.liziczh.app.sso.ref.service.DemoRefService;
 
 import lombok.extern.slf4j.Slf4j;
 

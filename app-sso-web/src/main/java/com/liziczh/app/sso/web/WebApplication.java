@@ -3,9 +3,9 @@ package com.liziczh.app.sso.web;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.liziczh.archetype.dao.DaoApplication;
-import com.liziczh.archetype.ref.RefApplication;
-import com.liziczh.archetype.service.ServiceApplication;
+import com.liziczh.app.sso.dao.DaoApplication;
+import com.liziczh.app.sso.ref.RefApplication;
+import com.liziczh.app.sso.service.ServiceApplication;
 
 @SpringBootApplication(scanBasePackages = { "com.liziczh.*" })
 public class WebApplication {

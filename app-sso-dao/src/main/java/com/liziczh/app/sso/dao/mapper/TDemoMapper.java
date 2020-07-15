@@ -3,8 +3,8 @@ package com.liziczh.app.sso.dao.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.liziczh.archetype.api.condition.DemoCondition;
-import com.liziczh.archetype.api.entity.TDemo;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.entity.TDemo;
 import com.liziczh.base.common.repository.BaseRepository;
 
 @Repository

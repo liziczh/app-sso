@@ -36,7 +36,7 @@ spring:
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: com.liziczh.**.mapper/*.xml
-  type-aliases-package: com.liziczh.archetype.api.entity
+  type-aliases-package: com.liziczh.app.sso.api.entity
 pagehelper:
   helper-dialect: mysql
   # 分页参数合理化

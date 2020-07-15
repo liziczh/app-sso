@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.liziczh.archetype.api.entity.TDemo;
-import com.liziczh.archetype.api.service.DemoService;
-import com.liziczh.archetype.redis.service.DemoRedisService;
+import com.liziczh.app.sso.api.entity.TDemo;
+import com.liziczh.app.sso.api.service.DemoService;
+import com.liziczh.app.sso.redis.service.DemoRedisService;
 import com.liziczh.base.common.controller.BaseController;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;

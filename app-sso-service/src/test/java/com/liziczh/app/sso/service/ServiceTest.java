@@ -8,10 +8,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.liziczh.archetype.api.common.Constants;
-import com.liziczh.archetype.api.condition.DemoCondition;
-import com.liziczh.archetype.api.service.DemoService;
-import com.liziczh.archetype.dao.DaoApplication;
+import com.liziczh.app.sso.api.common.Constants;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.service.DemoService;
+import com.liziczh.app.sso.dao.DaoApplication;
 
 import lombok.extern.slf4j.Slf4j;
 

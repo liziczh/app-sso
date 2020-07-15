@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liziczh.app.sso.dao.mapper.TDemoMapper">
-    <resultMap id="TDemoMap" type="TDemo">
+    <resultMap id="TDemoMap" type="com.liziczh.app.sso.api.entity.TDemo">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="NAME" property="name" jdbcType="VARCHAR" />
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -15,7 +15,7 @@
         ID, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID
     </sql>
     <!-- 条件查询 -->
-    <select id="selectByCondition" parameterType="DemoCondition" resultType="list" resultMap="TDemoMap">
+    <select id="selectByCondition" parameterType="com.liziczh.app.sso.api.condition.DemoCondition" resultType="list" resultMap="TDemoMap">
         SELECT * FROM T_DEMO
         <where>
             <if test="name != null">
@@ -44,14 +44,14 @@
         SELECT * FROM T_DEMO WHERE ID = #{id,jdbcType=DECIMAL}
     </select>
     <!-- 新增数据 -->
-    <insert id="insert" parameterType="TDemo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insert" parameterType="com.liziczh.app.sso.api.entity.TDemo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		insert into T_DEMO (ID, NAME, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, PERMIT_ROLE, VALID)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},
 		#{updateUser,jdbcType=VARCHAR}, #{permitRole,jdbcType=VARCHAR}, #{valid,jdbcType=VARCHAR})
 	</insert>
     <!-- 更新数据 By ID -->
-    <update id="update" parameterType="TDemo">
+    <update id="update" parameterType="com.liziczh.app.sso.api.entity.TDemo">
         update T_DEMO
         <set>
             <if test="name != null">

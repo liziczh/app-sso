@@ -11,10 +11,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.liziczh.app.sso.api.common.Constants;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.entity.TDemo;
 import com.liziczh.app.sso.dao.mapper.TDemoMapper;
-import com.liziczh.archetype.api.common.Constants;
-import com.liziczh.archetype.api.condition.DemoCondition;
-import com.liziczh.archetype.api.entity.TDemo;
 import com.liziczh.base.common.condition.SortCondition;
 
 @RunWith(SpringRunner.class)

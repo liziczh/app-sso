@@ -33,22 +33,22 @@
 		<!--biz-->
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-api</artifactId>
+			<artifactId>app-sso-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-dao</artifactId>
+			<artifactId>app-sso-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-redis</artifactId>
+			<artifactId>app-sso-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-ref</artifactId>
+			<artifactId>app-sso-ref</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

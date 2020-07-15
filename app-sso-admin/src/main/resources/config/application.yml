@@ -1,9 +1,9 @@
 server:
   servlet:
-    context-path: /archetypemgm
+    context-path: /app-ssomgm
 spring:
   application:
-    name: archetype-mgm
+    name: app-sso-mgm
   profiles:
     include: dao-${spring.profiles.active},redis-${spring.profiles.active},ref-${spring.profiles.active},mgm-${spring.profiles.active}
   jackson:

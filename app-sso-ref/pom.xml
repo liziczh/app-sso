@@ -19,7 +19,7 @@
 		<!--biz-->
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>archetype-api</artifactId>
+			<artifactId>app-sso-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

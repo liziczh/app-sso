@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import com.liziczh.archetype.api.service.MailService;
+import com.liziczh.app.sso.api.service.MailService;
 
 import lombok.extern.slf4j.Slf4j;
 
