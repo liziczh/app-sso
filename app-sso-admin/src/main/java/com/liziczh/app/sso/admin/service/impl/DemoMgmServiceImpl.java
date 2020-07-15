@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liziczh.app.sso.admin.service.DemoMgmService;
-
--sso.api.common.Constants;
-		-sso.api.condition.DemoCondition;
-		-sso.api.entity.TDemo;-sso.dao.mapper.TDemoMapper;
+import com.liziczh.app.sso.api.common.Constants;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.entity.TDemo;
+import com.liziczh.app.sso.dao.mapper.TDemoMapper;
 
 @Service
 public class DemoMgmServiceImpl implements DemoMgmService {

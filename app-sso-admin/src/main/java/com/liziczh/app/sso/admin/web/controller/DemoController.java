@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liziczh.app.sso.admin.service.DemoMgmService;
+import com.liziczh.app.sso.api.condition.DemoCondition;
+import com.liziczh.app.sso.api.entity.TDemo;
 import com.liziczh.base.common.result.Result;
 import com.liziczh.base.common.result.ResultBuilder;
 import com.liziczh.base.common.service.BaseMgmService;
@@ -18,9 +20,6 @@ import com.liziczh.base.mvc.controller.BaseMgmController;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-
--sso.api.condition.DemoCondition;
-		-sso.api.entity.TDemo;
 
 @Slf4j
 @RequestMapping(value = "/demo/")
