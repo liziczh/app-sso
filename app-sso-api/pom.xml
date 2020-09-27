@@ -16,5 +16,16 @@
 			<groupId>com.liziczh</groupId>
 			<artifactId>base-common</artifactId>
 		</dependency>
+		<!-- mybatis-plus -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<!--easy excel-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+		</dependency>
+
 	</dependencies>
 </project>

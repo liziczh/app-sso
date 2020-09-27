@@ -1,0 +1,20 @@
+-- 创建数据库app-sso
+CREATE DATABASE `app-sso` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+
+-- 创建用户信息表
+CREATE TABLE `T_USER` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `NAME` varchar(255) DEFAULT NULL COMMENT '名称',
+  `GENDER` varchar(32) DEFAULT NULL COMMENT '性别',
+  `EMAIL` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `MOBILE` varchar(64) DEFAULT NULL COMMENT '手机号',
+  `ID_CARD` varchar(255) DEFAULT NULL COMMENT '证件号',
+  `ADDRESS` varchar(255) DEFAULT NULL COMMENT '详细地址',
+  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
+  `CREATE_USER` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
+  `UPDATE_USER` varchar(255) DEFAULT NULL COMMENT '更新人',
+  `PERMIT_ROLE` varchar(255) DEFAULT NULL COMMENT '权限角色',
+  `VALID` int(11) DEFAULT NULL COMMENT '是否有效',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
