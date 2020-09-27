@@ -1,0 +1,54 @@
+package com.liziczh.app.sso.api.entity;
+
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.liziczh.base.common.entity.BaseEntity;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TUser extends BaseEntity {
+	private static final long serialVersionUID = -3399850105386695874L;
+	@ApiModelProperty(value = "ID")
+	@JsonProperty("id")
+	private Integer id;
+	@ApiModelProperty(value = "姓名")
+	@JsonProperty("name")
+	private String name;
+	@ApiModelProperty(value = "邮箱")
+	@JsonProperty("email")
+	private String email;
+	@ApiModelProperty(value = "手机号")
+	@JsonProperty("mobile")
+	private String mobile;
+	@ApiModelProperty(value = "证件号")
+	@JsonProperty("idCard")
+	private String idCard;
+	@ApiModelProperty(value = "详细地址")
+	@JsonProperty("address")
+	private String address;
+	@ApiModelProperty(value = "创建时间")
+	@JsonProperty("create_time")
+	private Date createTime;
+	@ApiModelProperty(value = "创建人")
+	@JsonProperty("create_user")
+	private String createUser;
+	@ApiModelProperty(value = "更新时间")
+	@JsonProperty("update_time")
+	private Date updateTime;
+	@ApiModelProperty(value = "更新人")
+	@JsonProperty("update_user")
+	private String updateUser;
+	@ApiModelProperty(value = "权限角色")
+	@JsonProperty("permit_role")
+	private String permitRole;
+	@ApiModelProperty(value = "是否有效")
+	@JsonProperty("valid")
+	private String valid;
+}
