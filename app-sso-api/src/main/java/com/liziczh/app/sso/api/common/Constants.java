@@ -1,8 +1,9 @@
 package com.liziczh.app.sso.api.common;
 
 public class Constants {
-	public static final String SYS_CODE = "app-sso";
-	public static final String SYS_USER = "app-sso";
+	public static final String SYS_CODE = "archetype";
+	public static final String SYS_USER = "archetype";
+
 	/**
 	 * 通用状态
 	 */

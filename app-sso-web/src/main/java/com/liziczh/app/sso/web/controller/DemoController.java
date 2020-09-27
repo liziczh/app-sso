@@ -3,15 +3,16 @@ package com.liziczh.app.sso.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.liziczh.app.sso.api.condition.DemoCondition;
 import com.liziczh.app.sso.api.entity.TDemo;
 import com.liziczh.app.sso.api.service.DemoService;
 import com.liziczh.app.sso.redis.service.DemoRedisService;
@@ -37,17 +38,15 @@ public class DemoController extends BaseController {
 		return new ResultBuilder<String>().complete("HelloWorld");
 	}
 	@ApiOperation(value = "分页查询", notes = "分页查询")
-	@GetMapping(value = "/page/{pageNum}/{pageSize}")
-	public Result<PageInfo<TDemo>> pageDemo(@PathVariable Integer pageNum, @PathVariable Integer pageSize) throws Exception {
-		PageHelper.startPage(pageNum, pageSize);
-		List<TDemo> demoList = demoService.getAll();
-		PageInfo<TDemo> pageInfo = new PageInfo<>(demoList);
-		return new ResultBuilder<PageInfo<TDemo>>().complete(pageInfo);
+	@PostMapping(value = "/page")
+	public Result<List<TDemo>> selectPage(@RequestBody DemoCondition condition) throws Exception {
+		List<TDemo> demoPage = demoService.selectPage(condition);
+		return new ResultBuilder<List<TDemo>>().complete(demoPage);
 	}
-	@ApiOperation(value = "查询全部", notes = "查询全部")
-	@GetMapping(value = "/getAll")
-	public Result<List<TDemo>> getAll() throws Exception {
-		List<TDemo> demoList = demoService.getAll();
+	@ApiOperation(value = "条件查询", notes = "分页查询")
+	@GetMapping(value = "/select")
+	public Result<List<TDemo>> selectByCondition(@RequestBody DemoCondition condition) throws Exception {
+		List<TDemo> demoList = demoService.selectByCondition(condition);
 		return new ResultBuilder<List<TDemo>>().complete(demoList);
 	}
 	@ApiOperation(value = "新增接口", notes = "新增接口")
@@ -69,7 +68,7 @@ public class DemoController extends BaseController {
 		return new ResultBuilder<TDemo>().complete(demo);
 	}
 	@ApiOperation(value = "删除接口", notes = "删除接口")
-	@GetMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/delete/{id}")
 	public Result<String> deleteDemo(@PathVariable String id) throws Exception {
 		demoService.deleteDemo(id);
 		return new ResultBuilder<String>().success();

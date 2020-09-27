@@ -42,7 +42,7 @@ public class MailServiceImpl implements MailService {
 			message.setSentDate(new Date());
 			mailSender.send(message);
 		} catch (Exception e) {
-			log.error("发送失败：{}", e.getMessage());
+			log.error("邮件发送失败：{}", e.getMessage());
 		}
 	}
 	@Override
@@ -59,7 +59,7 @@ public class MailServiceImpl implements MailService {
 			helper.setSentDate(new Date());
 			mailSender.send(message);
 		} catch (Exception e) {
-			log.error("发送失败：{}", e.getMessage());
+			log.error("邮件发送失败：{}", e.getMessage());
 		}
 	}
 	@Override
@@ -84,7 +84,7 @@ public class MailServiceImpl implements MailService {
 			}
 			mailSender.send(message);
 		} catch (Exception e) {
-			log.error("发送失败：{}", e.getMessage());
+			log.error("邮件发送失败：{}", e.getMessage());
 		}
 	}
 }

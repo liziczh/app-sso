@@ -1,4 +1,4 @@
 #本文件用于测试环境单元测试
 spring:
   profiles:
-    include: service-test,dao-test,redis-test,ref-test
+    include: service-test,mybatis-test,redis-test,ref-test

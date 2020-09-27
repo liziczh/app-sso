@@ -18,6 +18,7 @@ public class DemoRefServiceImpl implements DemoRefService {
 	private RefContextHelper helper;
 	@Autowired
 	private RestTemplate restTemplate;
+
 	@Override
 	public String hello() {
 		String url = helper.getProperty("ARCHETYPE_WEB.DEMO.HELLO");

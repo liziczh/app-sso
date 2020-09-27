@@ -1,5 +1,5 @@
 health:
   username: abc
   password: 123456
-app-sso:
+archetype:
   web: localhost

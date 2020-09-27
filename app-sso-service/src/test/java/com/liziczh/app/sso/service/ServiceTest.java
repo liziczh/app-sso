@@ -11,12 +11,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.liziczh.app.sso.api.common.Constants;
 import com.liziczh.app.sso.api.condition.DemoCondition;
 import com.liziczh.app.sso.api.service.DemoService;
-import com.liziczh.app.sso.dao.DaoApplication;
+import com.liziczh.app.sso.mybatisplus.MybatisPlusApplication;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringJUnitConfig(classes = { DaoApplication.class, ServiceApplication.class })
+@SpringJUnitConfig(classes = { MybatisPlusApplication.class, ServiceApplication.class })
 @SpringBootTest()
 @ActiveProfiles("test")
 @Slf4j

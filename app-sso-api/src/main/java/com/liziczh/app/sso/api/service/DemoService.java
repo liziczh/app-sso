@@ -8,18 +8,19 @@ import com.liziczh.base.common.service.BaseService;
 
 public interface DemoService extends BaseService {
 	/**
+	 * 分页查询
+	 * @param condition 条件
+	 * @return List<TDemo>
+	 * @throws Exception 异常
+	 */
+	List<TDemo> selectPage(DemoCondition condition) throws Exception;
+	/**
 	 * 条件查询
-	 * @param condition 查询条件
+	 * @param condition 条件
 	 * @return List<TDemo>
 	 * @throws Exception 异常
 	 */
 	List<TDemo> selectByCondition(DemoCondition condition) throws Exception;
-	/**
-	 * 查询全部
-	 * @return TDemo
-	 * @throws Exception 异常
-	 */
-	List<TDemo> getAll() throws Exception;
 	/**
 	 * 新增实体
 	 * @param demo 实体

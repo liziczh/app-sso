@@ -30,7 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>app-sso-dao</artifactId>
+			<artifactId>app-sso-mybatis-plus</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
