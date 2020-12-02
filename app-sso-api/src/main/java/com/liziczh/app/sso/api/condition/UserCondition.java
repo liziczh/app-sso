@@ -12,9 +12,11 @@ import lombok.EqualsAndHashCode;
 public class UserCondition extends BaseCondition {
 	private static final long serialVersionUID = -7473402179827602416L;
 	private Integer id;
-	private String name;
+	private String nickname;
 	private String email;
 	private String mobile;
+	private String password;
+	private String idName;
 	private String idCard;
 	private String address;
 	private Date startTime;

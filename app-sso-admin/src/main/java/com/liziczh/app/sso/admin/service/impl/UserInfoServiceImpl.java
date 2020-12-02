@@ -8,54 +8,54 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.liziczh.app.sso.admin.service.DemoMgmService;
+import com.liziczh.app.sso.admin.service.UserInfoService;
 import com.liziczh.app.sso.api.common.Constants;
-import com.liziczh.app.sso.api.condition.DemoCondition;
-import com.liziczh.app.sso.api.entity.TDemo;
-import com.liziczh.app.sso.mybatisplus.mapper.TDemoMapper;
+import com.liziczh.app.sso.api.condition.UserCondition;
+import com.liziczh.app.sso.api.entity.TUserInfo;
+import com.liziczh.app.sso.mybatisplus.mapper.TUserInfoMapper;
 import com.liziczh.base.common.condition.PageCondition;
 import com.liziczh.base.common.condition.SortCondition;
 
 @Service
-public class DemoMgmServiceImpl implements DemoMgmService {
+public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
-	private TDemoMapper demoMapper;
+	private TUserInfoMapper tUserInfoMapper;
 
 	@Override
-	public List<TDemo> selectByCondition(DemoCondition condition) {
+	public List<TUserInfo> selectByCondition(UserCondition condition) {
 		PageCondition pageCondition = condition.getPageCondition();
 		List<SortCondition> sortConditionList = condition.getSortConditionList();
-		QueryWrapper<TDemo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.lambda().like(TDemo::getName, condition.getName()).lt(TDemo::getCreateTime, new Date()).eq(TDemo::getValid, Constants.COMMON_STATUS.VALID.getCode());
+		QueryWrapper<TUserInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda().like(TUserInfo::getNickname, condition.getNickname()).lt(TUserInfo::getCreateTime, new Date()).eq(TUserInfo::getValid, Constants.COMMON_STATUS.VALID.getCode());
 		for (SortCondition sortCondition : sortConditionList) {
 			queryWrapper.orderByDesc(sortCondition.getColumnName());
 		}
-		Page<TDemo> demoPage = demoMapper.selectPage(new Page<>(pageCondition.getPageNum(), pageCondition.getPageSize()), queryWrapper);
+		Page<TUserInfo> demoPage = tUserInfoMapper.selectPage(new Page<>(pageCondition.getPageNum(), pageCondition.getPageSize()), queryWrapper);
 		return demoPage.getRecords();
 	}
 	@Override
-	public List<TDemo> getAll() {
-		return demoMapper.selectList(new QueryWrapper<>());
+	public List<TUserInfo> getAll() {
+		return tUserInfoMapper.selectList(new QueryWrapper<>());
 	}
 	@Override
-	public void addItem(TDemo entity) {
+	public void addItem(TUserInfo entity) {
 		entity.setCreateTime(new Date());
 		entity.setCreateUser(Constants.SYS_USER);
 		entity.setValid(Constants.COMMON_STATUS.VALID.getCode());
-		demoMapper.insert(entity);
+		tUserInfoMapper.insert(entity);
 	}
 	@Override
-	public void updateItem(TDemo entity) {
+	public void updateItem(TUserInfo entity) {
 		entity.setUpdateTime(new Date());
 		entity.setUpdateUser(Constants.SYS_USER);
-		demoMapper.updateById(entity);
+		tUserInfoMapper.updateById(entity);
 	}
 	@Override
-	public TDemo get(Integer id) {
-		return demoMapper.selectById(id);
+	public TUserInfo get(Integer id) {
+		return tUserInfoMapper.selectById(id);
 	}
 	@Override
 	public void delete(Integer id) {
-		demoMapper.deleteById(id);
+		tUserInfoMapper.deleteById(id);
 	}
 }
