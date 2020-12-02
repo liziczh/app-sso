@@ -17,8 +17,7 @@ import com.liziczh.app.sso.api.entity.TDemo;
 import com.liziczh.app.sso.api.service.DemoService;
 import com.liziczh.app.sso.redis.service.DemoRedisService;
 import com.liziczh.base.common.controller.BaseController;
-import com.liziczh.base.common.result.Result;
-import com.liziczh.base.common.result.ResultBuilder;
+import com.liziczh.base.common.response.Response;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,55 +33,55 @@ public class DemoController extends BaseController {
 
 	@ApiOperation(value = "hello", notes = "测试接口")
 	@GetMapping(value = "hello")
-	public Result<String> hello() {
-		return new ResultBuilder<String>().complete("HelloWorld");
+	public Response<String> hello() {
+		return new Response<String>().complete("HelloWorld");
 	}
 	@ApiOperation(value = "分页查询", notes = "分页查询")
 	@PostMapping(value = "/page")
-	public Result<List<TDemo>> selectPage(@RequestBody DemoCondition condition) throws Exception {
+	public Response<List<TDemo>> selectPage(@RequestBody DemoCondition condition) throws Exception {
 		List<TDemo> demoPage = demoService.selectPage(condition);
-		return new ResultBuilder<List<TDemo>>().complete(demoPage);
+		return new Response<List<TDemo>>().complete(demoPage);
 	}
 	@ApiOperation(value = "条件查询", notes = "分页查询")
 	@GetMapping(value = "/select")
-	public Result<List<TDemo>> selectByCondition(@RequestBody DemoCondition condition) throws Exception {
+	public Response<List<TDemo>> selectByCondition(@RequestBody DemoCondition condition) throws Exception {
 		List<TDemo> demoList = demoService.selectByCondition(condition);
-		return new ResultBuilder<List<TDemo>>().complete(demoList);
+		return new Response<List<TDemo>>().complete(demoList);
 	}
 	@ApiOperation(value = "新增接口", notes = "新增接口")
 	@PostMapping(value = "add")
-	public Result<String> addDemo(TDemo demo) throws Exception {
+	public Response<String> addDemo(TDemo demo) throws Exception {
 		demoService.addDemo(demo);
-		return new ResultBuilder<String>().success();
+		return new Response<String>().success();
 	}
 	@ApiOperation(value = "更新接口", notes = "更新接口")
 	@PutMapping(value = "update")
-	public Result<String> updateDemo(TDemo demo) throws Exception {
+	public Response<String> updateDemo(TDemo demo) throws Exception {
 		demoService.updateDemo(demo);
-		return new ResultBuilder<String>().success();
+		return new Response<String>().success();
 	}
 	@ApiOperation(value = "获取接口", notes = "获取接口")
 	@GetMapping(value = "/get/{id}")
-	public Result<TDemo> getDemo(@PathVariable String id) throws Exception {
+	public Response<TDemo> getDemo(@PathVariable String id) throws Exception {
 		TDemo demo = demoService.getDemo(id);
-		return new ResultBuilder<TDemo>().complete(demo);
+		return new Response<TDemo>().complete(demo);
 	}
 	@ApiOperation(value = "删除接口", notes = "删除接口")
 	@DeleteMapping(value = "/delete/{id}")
-	public Result<String> deleteDemo(@PathVariable String id) throws Exception {
+	public Response<String> deleteDemo(@PathVariable String id) throws Exception {
 		demoService.deleteDemo(id);
-		return new ResultBuilder<String>().success();
+		return new Response<String>().success();
 	}
 	@ApiOperation(value = "缓存", notes = "缓存")
 	@GetMapping(value = "/cache/{key}/{value}")
-	public Result<String> cache(@PathVariable String key, @PathVariable String value) throws Exception {
+	public Response<String> cache(@PathVariable String key, @PathVariable String value) throws Exception {
 		demoRedisService.setValue(key, value);
-		return new ResultBuilder<String>().success();
+		return new Response<String>().success();
 	}
 	@ApiOperation(value = "REST引用接口测试", notes = "REST引用接口测试")
 	@PostMapping(value = "ref/hello")
-	public Result<String> refHello() {
+	public Response<String> refHello() {
 		String hello = demoService.refHello();
-		return new ResultBuilder<String>().complete(hello);
+		return new Response<String>().complete(hello);
 	}
 }

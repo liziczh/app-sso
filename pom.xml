@@ -17,6 +17,7 @@
 		<module>app-sso-redis</module>
 		<module>app-sso-mybatis-plus</module>
 		<module>app-sso-ref</module>
+		<module>app-sso-internal</module>
 		<module>app-sso-service</module>
 		<module>app-sso-web</module>
 		<module>app-sso-admin</module>

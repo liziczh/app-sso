@@ -25,22 +25,7 @@
 		<!--biz-->
 		<dependency>
 			<groupId>com.liziczh</groupId>
-			<artifactId>app-sso-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>app-sso-mybatis-plus</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>app-sso-redis</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.liziczh</groupId>
-			<artifactId>app-sso-ref</artifactId>
+			<artifactId>app-sso-internal</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
