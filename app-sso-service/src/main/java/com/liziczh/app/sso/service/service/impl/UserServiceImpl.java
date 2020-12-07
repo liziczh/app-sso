@@ -38,6 +38,6 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 	@Override
-	public void logout(String username, String token) {
+	public void logout(String userId, String token) {
 	}
 }
