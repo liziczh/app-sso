@@ -7,9 +7,12 @@ import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
 import com.liziczh.base.common.util.JacksonUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author zhehao.chen
  */
+@Slf4j
 public class TokenUtils {
 	public static final String TYPE = "JWT";
 	public static final String ALGORITHM = "AES";
@@ -17,7 +20,7 @@ public class TokenUtils {
 	public static final Integer EXPIRE_DAYS = 30;
 	public static final String TOKEN_AES_KEY = "123456";
 	public static final String REFRESH_TOKEN_AES_KEY = "refresh123456";
-
+	public static final String SEPARATOR = ".";
 	/**
 	 * 生成Token
 	 * @param tokenHeader 头部信息
@@ -31,18 +34,41 @@ public class TokenUtils {
 		// Base64
 		String headerBase64 = Base64.getEncoder().encodeToString(header.getBytes());
 		String payloadBase64 = Base64.getEncoder().encodeToString(payload.getBytes());
-		String sign = AESUtils.aesEncrypt(headerBase64 + "." + payloadBase64, TOKEN_AES_KEY);
+		String sign = AESUtils.aesEncrypt(headerBase64 + SEPARATOR + payloadBase64, TOKEN_AES_KEY);
 		String signBase64 = Base64.getEncoder().encodeToString(sign.getBytes());
-		String token = headerBase64 + "." + payloadBase64 + "." + signBase64;
+		String token = headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + signBase64;
 		return Base64.getEncoder().encodeToString(token.getBytes());
 	}
 	/**
 	 * 校验token
-	 * @param token token
+	 * @param tokenBase64 tokenBase64
 	 * @return 校验结果
 	 */
-	public static boolean checkToken(String token) {
-		return false;
+	public static Boolean checkToken(String tokenBase64) {
+		// 拆分Header、Payload、Sign
+		String token = new String(Base64.getDecoder().decode(tokenBase64));
+		if (!token.contains(SEPARATOR)) {
+			log.info("token is invalid");
+			return false;
+		}
+		String[] tokenSplit = token.split(SEPARATOR);
+		if (tokenSplit.length != 3) {
+			log.info("token is invalid");
+			return false;
+		}
+		String headerBase64 = tokenSplit[0];
+		String payloadBase64 = tokenSplit[1];
+		String sign = tokenSplit[2];
+		// 校验sign
+		String newSign = AESUtils.aesEncrypt(headerBase64 + SEPARATOR + payloadBase64, TOKEN_AES_KEY);
+		if (!sign.equals(newSign)) {
+			log.info("token is invalid");
+			return false;
+		}
+		// Json
+		String header = new String(Base64.getDecoder().decode(headerBase64));
+		String payload = new String(Base64.getDecoder().decode(payloadBase64));
+		return true;
 	}
 	public static void main(String[] args) {
 		long currentTime = System.currentTimeMillis();
