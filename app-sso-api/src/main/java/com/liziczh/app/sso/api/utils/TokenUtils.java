@@ -18,7 +18,7 @@ public class TokenUtils {
 	public static final String ALGORITHM = "AES";
 	public static final String ISSUER = "";
 	public static final Integer EXPIRE_DAYS = 30;
-	public static final String TOKEN_AES_KEY = "123456";
+	public static final String TOKEN_AES_KEY = "0123456789012345";
 	public static final String REFRESH_TOKEN_AES_KEY = "refresh123456";
 	public static final String SEPARATOR = ".";
 	/**
@@ -35,8 +35,7 @@ public class TokenUtils {
 		String headerBase64 = Base64.getEncoder().encodeToString(header.getBytes());
 		String payloadBase64 = Base64.getEncoder().encodeToString(payload.getBytes());
 		String sign = AESUtils.aesEncrypt(headerBase64 + SEPARATOR + payloadBase64, TOKEN_AES_KEY);
-		String signBase64 = Base64.getEncoder().encodeToString(sign.getBytes());
-		String token = headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + signBase64;
+		String token = headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + sign;
 		return Base64.getEncoder().encodeToString(token.getBytes());
 	}
 	/**
@@ -51,7 +50,7 @@ public class TokenUtils {
 			log.info("token is invalid");
 			return false;
 		}
-		String[] tokenSplit = token.split(SEPARATOR);
+		String[] tokenSplit = token.split("\\.");
 		if (tokenSplit.length != 3) {
 			log.info("token is invalid");
 			return false;
