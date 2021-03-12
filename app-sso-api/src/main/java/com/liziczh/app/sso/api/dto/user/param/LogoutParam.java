@@ -1,4 +1,4 @@
-package com.liziczh.app.sso.api.dto.user;
+package com.liziczh.app.sso.api.dto.user.param;
 
 import java.io.Serializable;
 
@@ -9,17 +9,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 用户注册参数
+ * 退出登录
  * @author zhehao.chen
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserLoginParam implements Serializable {
+public class LogoutParam implements Serializable {
 	private static final long serialVersionUID = -3640216333547585805L;
-	@ApiModelProperty(value = "账号")
-	@JsonProperty("username")
-	private String username;
-	@ApiModelProperty(value = "密码")
-	@JsonProperty("password")
-	private String password;
+	@ApiModelProperty(value = "SessionId")
+	@JsonProperty("sessionId")
+	private String sessionId;
 }

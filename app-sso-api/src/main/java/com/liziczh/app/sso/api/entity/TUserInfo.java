@@ -22,6 +22,14 @@ public class TUserInfo extends BaseEntity {
 	@JsonProperty("id")
 	@TableId(value = "ID", type = IdType.AUTO)
 	private Integer id;
+	@ApiModelProperty(value = "账号")
+	@JsonProperty("username")
+	@TableField(value = "USERNAME")
+	private String username;
+	@ApiModelProperty(value = "密码")
+	@JsonProperty("password")
+	@TableField(value = "PASSWORD")
+	private String password;
 	@ApiModelProperty(value = "昵称")
 	@JsonProperty("nickname")
 	@TableField(value = "NICKNAME")
@@ -30,6 +38,10 @@ public class TUserInfo extends BaseEntity {
 	@JsonProperty("gender")
 	@TableField(value = "GENDER")
 	private String gender;
+	@ApiModelProperty(value = "生日")
+	@JsonProperty("birthday")
+	@TableField(value = "BIRTHDAY")
+	private String birthday;
 	@ApiModelProperty(value = "邮箱")
 	@JsonProperty("email")
 	@TableField(value = "EMAIL")
@@ -38,22 +50,18 @@ public class TUserInfo extends BaseEntity {
 	@JsonProperty("mobile")
 	@TableField(value = "MOBILE")
 	private String mobile;
-	@ApiModelProperty(value = "密码")
-	@JsonProperty("password")
-	@TableField(value = "PASSWORD")
-	private String password;
 	@ApiModelProperty(value = "真实姓名")
 	@JsonProperty("id_name")
 	@TableField(value = "ID_NAME")
 	private String idName;
+	@ApiModelProperty(value = "证件类型")
+	@JsonProperty("id_card_type")
+	@TableField(value = "ID_CARD_TYPE")
+	private String idCardType;
 	@ApiModelProperty(value = "证件号")
 	@JsonProperty("id_card")
 	@TableField(value = "ID_CARD")
 	private String idCard;
-	@ApiModelProperty(value = "详细地址")
-	@JsonProperty("address")
-	@TableField(value = "ADDRESS")
-	private String address;
 	@ApiModelProperty(value = "创建时间")
 	@JsonProperty("create_time")
 	@TableField(value = "CREATE_TIME")
@@ -70,10 +78,6 @@ public class TUserInfo extends BaseEntity {
 	@JsonProperty("update_user")
 	@TableField(value = "UPDATE_USER")
 	private String updateUser;
-	@ApiModelProperty(value = "权限角色")
-	@JsonProperty("permit_role")
-	@TableField(value = "PERMIT_ROLE")
-	private String permitRole;
 	@ApiModelProperty(value = "是否有效")
 	@JsonProperty("valid")
 	@TableField(value = "VALID")

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.liziczh.app.sso.redis.service.LockRedisService;
+import com.liziczh.app.sso.redis.service.SessionRedisService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,16 +16,20 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class LockRedisServiceImpl implements LockRedisService {
+public class SessionRedisServiceImpl implements SessionRedisService {
 	@Resource(name = "redisCustomTemplate")
 	private RedisTemplate redisTemplate;
 
 	@Override
-	public boolean lock(String key) {
-		return redisTemplate.opsForValue().setIfAbsent(key, key, 30, TimeUnit.SECONDS);
+	public boolean put(String key, String value, Long expireTime) {
+		long time = expireTime - System.currentTimeMillis();
+		if (time <= 0) {
+			return false;
+		}
+		return redisTemplate.opsForValue().setIfAbsent(key, key, time, TimeUnit.MILLISECONDS);
 	}
 	@Override
-	public void unlock(String key) {
+	public void remove(String key) {
 		redisTemplate.delete(key);
 	}
 }
