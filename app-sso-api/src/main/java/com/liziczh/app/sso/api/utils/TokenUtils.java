@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
+import com.liziczh.base.common.util.AESUtils;
 import com.liziczh.base.common.util.JacksonUtils;
 
 import lombok.extern.slf4j.Slf4j;

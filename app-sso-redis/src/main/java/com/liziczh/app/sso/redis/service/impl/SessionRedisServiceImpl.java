@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
 import com.liziczh.app.sso.redis.service.SessionRedisService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +22,13 @@ public class SessionRedisServiceImpl implements SessionRedisService {
 	private RedisTemplate redisTemplate;
 
 	@Override
-	public boolean put(String key, String value, Long expireTime) {
-		long time = expireTime - System.currentTimeMillis();
-		if (time <= 0) {
-			return false;
-		}
-		return redisTemplate.opsForValue().setIfAbsent(key, key, time, TimeUnit.MILLISECONDS);
+	public void set(String sessionId, AuthInfoDTO dto) {
+		long time = dto.getExpireTime() - System.currentTimeMillis();
+		redisTemplate.opsForValue().set(sessionId, dto, time, TimeUnit.MILLISECONDS);
+	}
+	@Override
+	public AuthInfoDTO get(String sessionId) {
+		return (AuthInfoDTO) redisTemplate.opsForValue().get(sessionId);
 	}
 	@Override
 	public void remove(String key) {

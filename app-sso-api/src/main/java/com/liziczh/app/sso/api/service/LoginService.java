@@ -1,5 +1,6 @@
 package com.liziczh.app.sso.api.service;
 
+import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
 import com.liziczh.base.common.service.BaseService;
 
 public interface LoginService extends BaseService {
@@ -10,6 +11,12 @@ public interface LoginService extends BaseService {
 	 * @return token
 	 */
 	String login(String username, String password);
+	/**
+	 * 登录状态校验
+	 * @param sessionId sessionId
+	 * @return token
+	 */
+	AuthInfoDTO doAuthentication(String sessionId);
 	/**
 	 * 退出登录
 	 * @param sessionId sessionId
