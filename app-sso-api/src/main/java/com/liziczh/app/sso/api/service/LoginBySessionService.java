@@ -12,9 +12,8 @@ public interface LoginBySessionService extends BaseService {
 	String login(String username, String password, boolean ifRemember);
 	/**
 	 * 登录状态校验
-	 * @param ifRemember ifRemember
 	 */
-	void doAuthentication(boolean ifRemember);
+	void doAuthentication();
 	/**
 	 * 退出登录
 	 */

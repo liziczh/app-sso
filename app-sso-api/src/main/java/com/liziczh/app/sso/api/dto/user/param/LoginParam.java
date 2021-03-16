@@ -22,4 +22,7 @@ public class LoginParam implements Serializable {
 	@ApiModelProperty(value = "密码")
 	@JsonProperty("password")
 	private String password;
+	@ApiModelProperty(value = "记住密码")
+	@JsonProperty("ifRemember")
+	private boolean ifRemember;
 }

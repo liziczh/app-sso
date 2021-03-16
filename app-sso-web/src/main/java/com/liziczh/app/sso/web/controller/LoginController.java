@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liziczh.app.sso.api.dto.user.param.LoginParam;
-import com.liziczh.app.sso.api.dto.user.param.LogoutParam;
 import com.liziczh.app.sso.api.dto.user.param.RegisterParam;
 import com.liziczh.app.sso.api.service.LoginBySessionService;
 import com.liziczh.app.sso.api.service.RegisterService;
@@ -20,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "示例接口", tags = "示例接口")
 @RequestMapping(value = "/user/")
 @RestController
-public class UserController extends BaseController {
+public class LoginController extends BaseController {
 	@Autowired
 	private RegisterService registerService;
 	@Autowired
@@ -35,13 +34,13 @@ public class UserController extends BaseController {
 	@ApiOperation(value = "login", notes = "登录")
 	@GetMapping(value = "login")
 	public Response<String> login(@RequestBody LoginParam param) {
-		String sessionId = loginBySessionService.login(param.getUsername(), param.getPassword());
+		String sessionId = loginBySessionService.login(param.getUsername(), param.getPassword(), param.isIfRemember());
 		return new Response<String>().complete(sessionId);
 	}
 	@ApiOperation(value = "logout", notes = "注销")
 	@GetMapping(value = "logout")
-	public Response<String> logout(@RequestBody LogoutParam param) {
-		loginBySessionService.logout(param.getSessionId());
+	public Response<String> logout() {
+		loginBySessionService.logout();
 		return new Response<String>().success();
 	}
 }

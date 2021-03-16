@@ -57,7 +57,7 @@ public class LoginBySessionServiceImpl implements LoginBySessionService {
 		return sessionId;
 	}
 	@Override
-	public void doAuthentication(boolean ifRemember) {
+	public void doAuthentication() {
 		// Cookie获取sessionId
 		Cookie cookie = CookieUtils.getCookie(request, COOKIE_SESSION_ID);
 		if (cookie != null) {
@@ -78,7 +78,7 @@ public class LoginBySessionServiceImpl implements LoginBySessionService {
 				dto.setRefreshTime(System.currentTimeMillis());
 				sessionRedisService.set(sessionId, dto);
 				// set new cookie
-				CookieUtils.setCookie(response, COOKIE_SESSION_ID, sessionId, null, COOKIE_PATH, ifRemember ? COOKIE_MAX_AGE : COOKIE_AGE, true);
+				CookieUtils.setCookie(response, COOKIE_SESSION_ID, sessionId, null, COOKIE_PATH, COOKIE_AGE, true);
 			}
 		}
 	}
