@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
 import com.liziczh.app.sso.api.entity.TUserInfo;
 import com.liziczh.app.sso.api.service.LoginService;
+import com.liziczh.app.sso.api.utils.CookieUtils;
 import com.liziczh.app.sso.mybatisplus.mapper.TUserInfoMapper;
 import com.liziczh.base.common.util.DigestUtils;
 
@@ -54,8 +55,8 @@ public class LoginByCookieServiceImpl implements LoginService {
 		return null;
 	}
 	@Override
-	public void logout(String token) {
-		// TODO Cookie移除会话信息
-		Cookie[] cookies = request.getCookies();
+	public void logout(String sessionId) {
+		// Cookie销毁会话信息
+		CookieUtils.destroy(request, response, sessionId);
 	}
 }
