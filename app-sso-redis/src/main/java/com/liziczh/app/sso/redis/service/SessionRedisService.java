@@ -22,5 +22,5 @@ public interface SessionRedisService {
 	 * 移除session
 	 * @param sessionId
 	 */
-	void remove(String sessionId);
+	void delete(String sessionId);
 }

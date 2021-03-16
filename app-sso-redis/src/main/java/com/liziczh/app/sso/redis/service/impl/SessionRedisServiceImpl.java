@@ -31,7 +31,7 @@ public class SessionRedisServiceImpl implements SessionRedisService {
 		return (AuthInfoDTO) redisTemplate.opsForValue().get(sessionId);
 	}
 	@Override
-	public void remove(String key) {
+	public void delete(String key) {
 		redisTemplate.delete(key);
 	}
 }

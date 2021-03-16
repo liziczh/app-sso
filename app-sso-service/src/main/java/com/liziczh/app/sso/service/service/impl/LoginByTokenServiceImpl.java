@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
-import com.liziczh.app.sso.api.service.LoginService;
+import com.liziczh.app.sso.api.service.LoginByTokenService;
 import com.liziczh.app.sso.mybatisplus.mapper.TUserInfoMapper;
 import com.liziczh.app.sso.redis.service.SessionRedisService;
 
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class LoginByTokenServiceImpl implements LoginService {
+public class LoginByTokenServiceImpl implements LoginByTokenService {
 	@Autowired
 	private TUserInfoMapper tUserInfoMapper;
 	@Autowired

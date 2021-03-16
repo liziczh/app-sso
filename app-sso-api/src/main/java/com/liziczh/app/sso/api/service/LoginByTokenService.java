@@ -3,7 +3,7 @@ package com.liziczh.app.sso.api.service;
 import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
 import com.liziczh.base.common.service.BaseService;
 
-public interface LoginService extends BaseService {
+public interface LoginByTokenService extends BaseService {
 	/**
 	 * 账号密码登录
 	 * @param username 用户名
