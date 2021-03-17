@@ -1,9 +1,6 @@
 package com.liziczh.app.sso.api.common;
 
 public class UserConstants {
-	public static final String SYS_CODE = "app-sso";
-	public static final String SYS_USER = "app-sso";
-
 	/**
 	 * 性别
 	 */

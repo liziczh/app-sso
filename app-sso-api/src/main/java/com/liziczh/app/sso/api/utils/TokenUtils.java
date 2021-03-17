@@ -1,7 +1,6 @@
 package com.liziczh.app.sso.api.utils;
 
 import java.util.Base64;
-import java.util.UUID;
 
 import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
@@ -67,27 +66,5 @@ public class TokenUtils {
 		String header = new String(Base64.getDecoder().decode(headerBase64));
 		String payload = new String(Base64.getDecoder().decode(payloadBase64));
 		return true;
-	}
-	public static void main(String[] args) {
-		long currentTime = System.currentTimeMillis();
-		// TokenHeader
-		TokenHeader tokenHeader = new TokenHeader();
-		tokenHeader.setTyp(TYPE);
-		tokenHeader.setAlg(ALGORITHM);
-		// TokenPayload
-		TokenPayload tokenPayload = new TokenPayload();
-		tokenPayload.setJid(String.valueOf(UUID.randomUUID()));
-		tokenPayload.setIss(ISSUER);
-		tokenPayload.setIat(String.valueOf(currentTime));
-		tokenPayload.setNbf(String.valueOf(currentTime));
-		tokenPayload.setExp(String.valueOf(currentTime + 24 * 60 * 60 * 1000L));
-		tokenPayload.setSub("主题");
-		tokenPayload.setAud("受众");
-		// createToken
-		String token = createToken(tokenHeader, tokenPayload, "123456");
-		System.out.println(token);
-		// checkToken
-		Boolean result = checkToken(token, "123456");
-		System.out.println(result);
 	}
 }
