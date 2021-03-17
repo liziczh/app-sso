@@ -2,7 +2,7 @@ package com.liziczh.app.sso.api.service;
 
 import com.liziczh.base.common.service.BaseService;
 
-public interface LoginBySessionService extends BaseService {
+public interface SsoCookieLoginService extends BaseService {
 	/**
 	 * 账号密码登录
 	 * @param username 用户名

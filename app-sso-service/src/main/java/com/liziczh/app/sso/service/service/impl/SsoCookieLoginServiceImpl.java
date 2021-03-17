@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
 import com.liziczh.app.sso.api.entity.TUserInfo;
-import com.liziczh.app.sso.api.service.LoginBySessionService;
+import com.liziczh.app.sso.api.service.SsoCookieLoginService;
 import com.liziczh.app.sso.api.utils.CookieUtils;
 import com.liziczh.app.sso.internal.service.UserService;
 import com.liziczh.app.sso.redis.service.SessionRedisService;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class LoginBySessionServiceImpl implements LoginBySessionService {
+public class SsoCookieLoginServiceImpl implements SsoCookieLoginService {
 	public static final String COOKIE_SESSION_ID = "SESSION_ID";
 	public static final String COOKIE_PATH = "/";
 	public static final int COOKIE_MAX_AGE = Integer.MAX_VALUE;

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
-import com.liziczh.base.common.util.AESUtils;
+import com.liziczh.base.common.util.HmacSHA256;
 import com.liziczh.base.common.util.JacksonUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,37 +16,35 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenUtils {
 	public static final String TYPE = "JWT";
-	public static final String ALGORITHM = "AES";
-	public static final String ISSUER = "";
-	public static final Integer EXPIRE_DAYS = 30;
-	public static final String TOKEN_AES_KEY = "0123456789012345";
-	public static final String REFRESH_TOKEN_AES_KEY = "refresh123456";
+	public static final String ALGORITHM = "HS256";
 	public static final String SEPARATOR = ".";
+	public static final String ISSUER = "";
+
 	/**
 	 * 生成Token
 	 * @param tokenHeader 头部信息
 	 * @param tokenPayload 载荷信息
+	 * @param secret 密钥
 	 * @return token
 	 */
-	public static String createToken(TokenHeader tokenHeader, TokenPayload tokenPayload) {
+	public static String createToken(TokenHeader tokenHeader, TokenPayload tokenPayload, String secret) {
 		// Json
 		String header = JacksonUtils.toJSONString(tokenHeader);
 		String payload = JacksonUtils.toJSONString(tokenPayload);
 		// Base64
 		String headerBase64 = Base64.getEncoder().encodeToString(header.getBytes());
 		String payloadBase64 = Base64.getEncoder().encodeToString(payload.getBytes());
-		String sign = AESUtils.aesEncrypt(headerBase64 + SEPARATOR + payloadBase64, TOKEN_AES_KEY);
-		String token = headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + sign;
-		return Base64.getEncoder().encodeToString(token.getBytes());
+		// sign
+		String sign = HmacSHA256.hmacSHA256(headerBase64 + SEPARATOR + payloadBase64, secret);
+		return headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + sign;
 	}
 	/**
 	 * 校验token
-	 * @param tokenBase64 tokenBase64
+	 * @param token token
 	 * @return 校验结果
 	 */
-	public static Boolean checkToken(String tokenBase64) {
+	public static Boolean checkToken(String token, String secret) {
 		// 拆分Header、Payload、Sign
-		String token = new String(Base64.getDecoder().decode(tokenBase64));
 		if (!token.contains(SEPARATOR)) {
 			log.info("token is invalid");
 			return false;
@@ -60,7 +58,7 @@ public class TokenUtils {
 		String payloadBase64 = tokenSplit[1];
 		String sign = tokenSplit[2];
 		// 校验sign
-		String newSign = AESUtils.aesEncrypt(headerBase64 + SEPARATOR + payloadBase64, TOKEN_AES_KEY);
+		String newSign = HmacSHA256.hmacSHA256(headerBase64 + SEPARATOR + payloadBase64, secret);
 		if (!sign.equals(newSign)) {
 			log.info("token is invalid");
 			return false;
@@ -82,14 +80,14 @@ public class TokenUtils {
 		tokenPayload.setIss(ISSUER);
 		tokenPayload.setIat(String.valueOf(currentTime));
 		tokenPayload.setNbf(String.valueOf(currentTime));
-		tokenPayload.setExp(String.valueOf(currentTime + EXPIRE_DAYS * 24 * 60 * 60 * 1000L));
+		tokenPayload.setExp(String.valueOf(currentTime + 24 * 60 * 60 * 1000L));
 		tokenPayload.setSub("主题");
 		tokenPayload.setAud("受众");
 		// createToken
-		String token = createToken(tokenHeader, tokenPayload);
+		String token = createToken(tokenHeader, tokenPayload, "123456");
 		System.out.println(token);
 		// checkToken
-		Boolean result = checkToken(token);
+		Boolean result = checkToken(token, "123456");
 		System.out.println(result);
 	}
 }
