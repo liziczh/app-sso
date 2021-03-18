@@ -4,8 +4,8 @@ import java.util.Base64;
 
 import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
+import com.liziczh.base.common.util.FastJsonUtils;
 import com.liziczh.base.common.util.HmacSHA256;
-import com.liziczh.base.common.util.JacksonUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,8 +28,8 @@ public class TokenUtils {
 	 */
 	public static String createToken(TokenHeader tokenHeader, TokenPayload tokenPayload, String secret) {
 		// Json
-		String header = JacksonUtils.toJSONString(tokenHeader);
-		String payload = JacksonUtils.toJSONString(tokenPayload);
+		String header = FastJsonUtils.toJSONString(tokenHeader);
+		String payload = FastJsonUtils.toJSONString(tokenPayload);
 		// Base64
 		String headerBase64 = Base64.getEncoder().encodeToString(header.getBytes());
 		String payloadBase64 = Base64.getEncoder().encodeToString(payload.getBytes());
@@ -38,33 +38,35 @@ public class TokenUtils {
 		return headerBase64 + SEPARATOR + payloadBase64 + SEPARATOR + sign;
 	}
 	/**
-	 * 校验token
+	 * 校验token，获取token载荷
 	 * @param token token
+	 * @param secret secret
 	 * @return 校验结果
 	 */
-	public static Boolean checkToken(String token, String secret) {
+	public static TokenPayload getPayload(String token, String secret) {
 		// 拆分Header、Payload、Sign
 		if (!token.contains(SEPARATOR)) {
 			log.info("token is invalid");
-			return false;
+			return null;
 		}
 		String[] tokenSplit = token.split("\\.");
 		if (tokenSplit.length != 3) {
 			log.info("token is invalid");
-			return false;
+			return null;
 		}
 		String headerBase64 = tokenSplit[0];
 		String payloadBase64 = tokenSplit[1];
 		String sign = tokenSplit[2];
+		// Json
+		String header = new String(Base64.getDecoder().decode(headerBase64));
+		String payload = new String(Base64.getDecoder().decode(payloadBase64));
 		// 校验sign
 		String newSign = HmacSHA256.hmacSHA256(headerBase64 + SEPARATOR + payloadBase64, secret);
 		if (!sign.equals(newSign)) {
 			log.info("token is invalid");
-			return false;
+			return null;
 		}
-		// Json
-		String header = new String(Base64.getDecoder().decode(headerBase64));
-		String payload = new String(Base64.getDecoder().decode(payloadBase64));
-		return true;
+		// payload
+		return FastJsonUtils.parseObject(payload, TokenPayload.class);
 	}
 }

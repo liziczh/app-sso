@@ -52,8 +52,8 @@ public class SsoTokenLoginServiceImpl implements SsoTokenLoginService {
 		// secret
 		String secret = "";
 		// check token
-		Boolean isLogin = TokenUtils.checkToken(token, secret);
-		return isLogin;
+		TokenPayload payload = TokenUtils.getPayload(token, secret);
+		return payload != null;
 	}
 	@Override
 	public void logout(String token) {
