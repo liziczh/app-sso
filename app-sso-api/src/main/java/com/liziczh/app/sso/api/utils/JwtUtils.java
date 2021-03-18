@@ -24,7 +24,6 @@ public class JwtUtils {
 	 * @return token
 	 */
 	public static String createToken(Map<String, String> payload, String secret) {
-		Long currentTime = System.currentTimeMillis();
 		JWTCreator.Builder builder = JWT.create();
 		// payload
 		payload.forEach(builder::withClaim);
