@@ -1,14 +1,16 @@
 package com.liziczh.app.sso.service.service.impl;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.liziczh.app.sso.api.dto.token.TokenHeader;
 import com.liziczh.app.sso.api.dto.token.TokenPayload;
+import com.liziczh.app.sso.api.dto.user.param.LoginDTO;
 import com.liziczh.app.sso.api.entity.TUserInfo;
 import com.liziczh.app.sso.api.service.SsoTokenLoginService;
+import com.liziczh.app.sso.api.utils.JwtUtils;
 import com.liziczh.app.sso.api.utils.TokenUtils;
 import com.liziczh.app.sso.internal.service.UserService;
 
@@ -25,30 +27,20 @@ public class SsoTokenLoginServiceImpl implements SsoTokenLoginService {
 	private UserService userService;
 
 	@Override
-	public String login(String username, String password) {
+	public String login(LoginDTO param, String appKey) {
 		// findUser
-		TUserInfo userInfo = userService.getUserByUsernameAndPassword(username, password);
+		TUserInfo userInfo = userService.getUserByUsernameAndPassword(param.getUsername(), param.getPassword());
 		// secret
 		String secret = "";
 		// token
 		long currentTime = System.currentTimeMillis();
-		// TokenHeader
-		TokenHeader tokenHeader = new TokenHeader();
-		tokenHeader.setTyp(TokenUtils.TYPE);
-		tokenHeader.setAlg(TokenUtils.ALGORITHM);
-		// TokenPayload
-		TokenPayload tokenPayload = new TokenPayload();
-		tokenPayload.setJid(String.valueOf(UUID.randomUUID()));
-		tokenPayload.setIss(TokenUtils.ISSUER);
-		tokenPayload.setIat(String.valueOf(currentTime));
-		tokenPayload.setNbf(String.valueOf(currentTime));
-		tokenPayload.setExp(String.valueOf(currentTime + 24 * 60 * 60 * 1000L));
-		tokenPayload.setSub("主题");
-		tokenPayload.setAud("受众");
-		return TokenUtils.createToken(tokenHeader, tokenPayload, secret);
+		Map<String, String> map = new HashMap<>();
+		map.put("USER_ID", String.valueOf(userInfo.getId()));
+		String token = JwtUtils.createToken(map, secret);
+		return token;
 	}
 	@Override
-	public boolean doAuthentication(String token) {
+	public boolean doAuthentication(String token, String appKey) {
 		// secret
 		String secret = "";
 		// check token

@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LoginParam implements Serializable {
+public class LoginDTO implements Serializable {
 	private static final long serialVersionUID = -3640216333547585805L;
 	@ApiModelProperty(value = "账号")
 	@JsonProperty("username")
