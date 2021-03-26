@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liziczh.app.sso.api.dto.session.AuthInfoDTO;
+import com.liziczh.app.sso.api.dto.user.param.LoginDTO;
 import com.liziczh.app.sso.api.entity.TUserInfo;
 import com.liziczh.app.sso.api.service.SsoCookieLoginService;
 import com.liziczh.app.sso.api.utils.CookieUtils;
 import com.liziczh.app.sso.internal.service.UserService;
 import com.liziczh.app.sso.redis.service.SessionRedisService;
+import com.liziczh.base.common.exception.BizInfoException;
 import com.liziczh.base.common.util.DigestUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +43,13 @@ public class SsoCookieLoginServiceImpl implements SsoCookieLoginService {
 	private HttpServletResponse response;
 
 	@Override
-	public String login(String username, String password, boolean ifRemember) {
+	public String login(LoginDTO param) {
 		// findUser
-		TUserInfo userInfo = userService.getUserByUsernameAndPassword(username, password);
+		TUserInfo userInfo = userService.getUserByUsername(param.getUsername());
+		// check password
+		if (!userInfo.getPassword().equals(DigestUtils.md5DigestAsHex(param.getPassword()))) {
+			throw new BizInfoException("400", "密码不正确");
+		}
 		// sessionId
 		String sessionId = DigestUtils.md5DigestAsHex(userInfo.getId() + UUID.randomUUID().toString());
 		// session
@@ -53,7 +59,7 @@ public class SsoCookieLoginServiceImpl implements SsoCookieLoginService {
 		dto.setRefreshTime(System.currentTimeMillis());
 		sessionRedisService.set(sessionId, dto);
 		// cookie
-		CookieUtils.setCookie(response, COOKIE_SESSION_ID, sessionId, null, COOKIE_PATH, ifRemember ? COOKIE_MAX_AGE : COOKIE_AGE, true);
+		CookieUtils.setCookie(response, COOKIE_SESSION_ID, sessionId, null, COOKIE_PATH, param.isIfRemember() ? COOKIE_MAX_AGE : COOKIE_AGE, true);
 		return sessionId;
 	}
 	@Override

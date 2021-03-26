@@ -1,15 +1,14 @@
 package com.liziczh.app.sso.api.service;
 
+import com.liziczh.app.sso.api.dto.user.param.LoginDTO;
 import com.liziczh.base.common.service.BaseService;
 
 public interface SsoCookieLoginService extends BaseService {
 	/**
 	 * 账号密码登录
-	 * @param username 用户名
-	 * @param password 密码
-	 * @param ifRemember ifRemember
+	 * @param param 登录
 	 */
-	String login(String username, String password, boolean ifRemember);
+	String login(LoginDTO param);
 	/**
 	 * 登录状态校验
 	 */

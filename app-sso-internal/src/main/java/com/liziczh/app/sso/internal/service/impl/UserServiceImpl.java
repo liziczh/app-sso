@@ -8,7 +8,6 @@ import com.liziczh.app.sso.api.entity.TUserInfo;
 import com.liziczh.app.sso.internal.service.UserService;
 import com.liziczh.app.sso.mybatisplus.mapper.TUserInfoMapper;
 import com.liziczh.base.common.exception.BizInfoException;
-import com.liziczh.base.common.util.DigestUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,32 +18,12 @@ public class UserServiceImpl implements UserService {
 	private TUserInfoMapper userInfoMapper;
 
 	@Override
-	public TUserInfo getUserByUsernameAndPassword(String username, String password) {
+	public TUserInfo getUserByUsername(String username) {
 		QueryWrapper<TUserInfo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.lambda().eq(TUserInfo::getUsername, username).eq(TUserInfo::getPassword, DigestUtils.md5DigestAsHex(password));
+		queryWrapper.lambda().eq(TUserInfo::getUsername, username);
 		TUserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
 		if (userInfo == null) {
-			throw new BizInfoException("用户不存在");
-		}
-		return userInfo;
-	}
-	@Override
-	public TUserInfo getUserByMobileAndPassword(String mobile, String password) {
-		QueryWrapper<TUserInfo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.lambda().eq(TUserInfo::getMobile, mobile).eq(TUserInfo::getPassword, DigestUtils.md5DigestAsHex(password));
-		TUserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
-		if (userInfo == null) {
-			throw new BizInfoException("用户不存在");
-		}
-		return userInfo;
-	}
-	@Override
-	public TUserInfo getUserByEmailAndPassword(String email, String password) {
-		QueryWrapper<TUserInfo> queryWrapper = new QueryWrapper<>();
-		queryWrapper.lambda().eq(TUserInfo::getEmail, email).eq(TUserInfo::getPassword, DigestUtils.md5DigestAsHex(password));
-		TUserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
-		if (userInfo == null) {
-			throw new BizInfoException("用户不存在");
+			throw new BizInfoException("400", "用户不存在");
 		}
 		return userInfo;
 	}
@@ -54,7 +33,7 @@ public class UserServiceImpl implements UserService {
 		queryWrapper.lambda().eq(TUserInfo::getMobile, mobile);
 		TUserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
 		if (userInfo == null) {
-			throw new BizInfoException("用户不存在");
+			throw new BizInfoException("400", "用户不存在");
 		}
 		return userInfo;
 	}
@@ -64,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		queryWrapper.lambda().eq(TUserInfo::getEmail, email);
 		TUserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
 		if (userInfo == null) {
-			throw new BizInfoException("用户不存在");
+			throw new BizInfoException("400", "用户不存在");
 		}
 		return userInfo;
 	}

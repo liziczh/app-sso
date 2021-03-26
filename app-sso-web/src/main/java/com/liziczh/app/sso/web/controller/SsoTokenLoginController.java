@@ -1,13 +1,16 @@
 package com.liziczh.app.sso.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.liziczh.app.sso.api.common.SsoConstants;
 import com.liziczh.app.sso.api.dto.user.param.LoginDTO;
 import com.liziczh.app.sso.api.service.SsoTokenLoginService;
 import com.liziczh.base.common.controller.BaseController;
@@ -25,22 +28,33 @@ public class SsoTokenLoginController extends BaseController {
 
 	@ApiOperation(value = "login", notes = "登录")
 	@PostMapping(value = "login")
-	public String login(@RequestBody LoginDTO param, @RequestParam String appKey, @RequestParam String redirectUrl) {
-		String token = ssoTokenLoginService.login(param, appKey);
-		return;
+	public String login(@RequestBody LoginDTO param, @RequestParam String appId, @RequestParam String redirectUrl) throws Exception {
+		String token = ssoTokenLoginService.login(param, appId);
+		// redirect
+		String url = this.generateRedirectUrl(redirectUrl, token);
+		return "redirect:" + url;
 	}
 	@ApiOperation(value = "authorize", notes = "认证")
 	@PostMapping(value = "authorize")
-	public Response<String> authorize(@RequestParam String token, @RequestParam String appKey, @RequestParam String redirectUrl) {
-		ssoTokenLoginService.doAuthentication(token, appKey);
+	public Response<String> authorize(@RequestParam String token, @RequestParam String appId, @RequestParam String redirectUrl) {
+		ssoTokenLoginService.doAuthentication(token, appId);
+		// redirect
 		return new Response<String>().complete(token);
 	}
 	@ApiOperation(value = "logout", notes = "注销")
-	@GetMapping(value = "logout")
-	public Response<String> logout(@RequestParam String appKey, @RequestParam String token) {
+	@PostMapping(value = "logout")
+	public Response<String> logout(@RequestParam String appId, @RequestParam String token) {
 		ssoTokenLoginService.logout(token);
 		return new Response<String>().success();
 	}
-	private String redirectUrl(String redirectUrl) {
+	private String generateRedirectUrl(String redirectUrl, String authCode) throws UnsupportedEncodingException {
+		StringBuilder url = new StringBuilder(redirectUrl);
+		if (redirectUrl.contains("?")) {
+			url.append("&");
+		} else {
+			url.append("?");
+		}
+		url.append(SsoConstants.AUTH_CODE).append("=").append(authCode);
+		return URLDecoder.decode(url.toString(), "UTF-8");
 	}
 }

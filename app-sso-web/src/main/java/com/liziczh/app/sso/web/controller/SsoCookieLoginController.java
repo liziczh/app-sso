@@ -2,6 +2,7 @@ package com.liziczh.app.sso.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +26,9 @@ public class SsoCookieLoginController extends BaseController {
 	private SsoCookieLoginService ssoCookieLoginService;
 
 	@ApiOperation(value = "login", notes = "登录")
-	@GetMapping(value = "login")
+	@PostMapping(value = "login")
 	public Response<String> login(@RequestBody LoginDTO param) {
-		String sessionId = ssoCookieLoginService.login(param.getUsername(), param.getPassword(), param.isIfRemember());
+		String sessionId = ssoCookieLoginService.login(param);
 		return new Response<String>().complete(sessionId);
 	}
 	@ApiOperation(value = "logout", notes = "注销")
